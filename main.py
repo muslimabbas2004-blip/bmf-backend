@@ -27,6 +27,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def read_root():
+    return {"message": "Event Registration API is online!", "status": "active"}
+
 @app.post("/register")
 def register(data: RegistrationCreate):
     conn = get_db_connection()
