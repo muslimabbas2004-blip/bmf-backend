@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.venv/
+
+# SQLite database (contains live registration data — do not commit)
+*.db
+*.sqlite
+*.sqlite3
+
+# Misc
+.DS_Store
