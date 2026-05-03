@@ -8,7 +8,15 @@ import io
 from database import init_db, get_db_connection
 from models import RegistrationCreate
 
-app = FastAPI(title="Event Registration API")
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Initialize database on startup
+    init_db()
+    yield
+
+app = FastAPI(title="Event Registration API", lifespan=lifespan)
 
 # Setup CORS
 app.add_middleware(
@@ -18,11 +26,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Initialize database on startup
-@app.on_event("startup")
-def on_startup():
-    init_db()
 
 @app.post("/register")
 def register(data: RegistrationCreate):
